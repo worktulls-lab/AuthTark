@@ -1,0 +1,87 @@
+# ============================================================
+#  TarkMullAuth — конфигурация
+#  Все тексты используют формат MiniMessage:
+#  https://docs.advntr.dev/minimessage/format.html
+#  (<gradient:#hex:#hex>, <bold>, <yellow> и т.д.)
+# ============================================================
+
+storage-file: "players.yml"
+
+# Минимальная длина пароля
+min-password-length: 4
+
+# --------------------------------------------------------------
+# Сессии — это и есть механизм "иногда пароль не нужен".
+# Если игрок уже входил с этого же IP и сессия ещё не истекла,
+# при следующем заходе он авторизуется автоматически, без /login.
+# --------------------------------------------------------------
+session:
+  enabled: true
+  duration-minutes: 15
+  require-same-ip: true
+
+login:
+  # сколько секунд даётся игроку на /login или /register до кика
+  timeout-seconds: 60
+  # сколько неверных попыток пароля допускается до кика
+  max-attempts: 5
+
+# --------------------------------------------------------------
+# Математическая капча против ботов-регистраторов.
+# Новому игроку сначала нужно решить пример (/captcha <число>),
+# и только потом становится доступен /register.
+# На вход уже зарегистрированных (/login) не влияет.
+# --------------------------------------------------------------
+captcha:
+  enabled: true
+  min-number: 1
+  max-number: 20
+  # сколько неверных ответов допускается до кика
+  max-attempts: 5
+
+# --------------------------------------------------------------
+# Надпись-водяной знак на экране входа/регистрации, гаснет сама.
+# ВАЖНО: у ванильного Minecraft нет настоящего верхнего левого угла,
+# управляемого плагином — используется боковая панель (scoreboard),
+# она рисуется в верхнем ПРАВОМ углу экрана.
+# Если на сервере уже есть другой плагин со своим scoreboard —
+# отключите (enabled: false), чтобы не было конфликта.
+# --------------------------------------------------------------
+branding:
+  enabled: true
+  text: "by TarkMull"
+  duration-seconds: 4
+
+messages:
+  already-authenticated: "<gray>Вы уже вошли в аккаунт.</gray>"
+  already-registered: "<yellow>Вы уже зарегистрированы. Используйте <white>/login <пароль></white>.</yellow>"
+  not-registered: "<yellow>Аккаунт не найден. Зарегистрируйтесь: <white>/register <пароль> <пароль></white></yellow>"
+  register-usage: "<red>Использование: <white>/register <пароль> <повтор_пароля></white></red>"
+  login-usage: "<red>Использование: <white>/login <пароль></white></red>"
+  password-mismatch: "<red>Пароли не совпадают, попробуйте снова.</red>"
+  password-too-short: "<red>Пароль слишком короткий (минимум %min% символов).</red>"
+  password-too-simple: "<red>Пароль не должен совпадать с вашим ником.</red>"
+  wrong-password: "<red>Неверный пароль! Осталось попыток: <white>%left%</white></red>"
+  kick-attempts: "<red><bold>Слишком много неверных попыток входа.</bold>\n<gray>Переподключитесь и попробуйте снова.</gray></red>"
+  kick-timeout: "<red><bold>Время на вход истекло.</bold>\n<gray>Подключитесь заново и авторизуйтесь быстрее.</gray></red>"
+  register-success: "<green>✔ Регистрация завершена! Добро пожаловать.</green>"
+  login-success: "<green>✔ Вход выполнен успешно!</green>"
+  chat-blocked: "<gray>Сначала авторизуйтесь, чтобы писать в чат.</gray>"
+  command-blocked: "<gray>Эта команда недоступна до входа в аккаунт.</gray>"
+  reminder-register: "<gradient:#ff9966:#ff5e62>Зарегистрируйтесь:</gradient> <white>/register <пароль> <пароль></white>"
+  reminder-login: "<gradient:#89f7fe:#66a6ff>Авторизуйтесь:</gradient> <white>/login <пароль></white>"
+  bossbar: "<yellow>⏳ Осталось %time% сек. на вход</yellow>"
+  session-actionbar: "<gray>Вход выполнен автоматически (активная сессия)</gray>"
+  must-login-first: "<yellow>Сначала войдите: <white>/login <пароль></white></yellow>"
+  changepassword-usage: "<red>Использование: <white>/changepassword <старый> <новый> <новый></white></red>"
+  wrong-old-password: "<red>Старый пароль указан неверно.</red>"
+  password-same-as-old: "<red>Новый пароль совпадает со старым.</red>"
+  changepassword-success: "<green>✔ Пароль изменён.</green>"
+  captcha-prompt: "<yellow>Прежде чем зарегистрироваться, решите пример: <white>%question% = ?</white></yellow>\n<gray>Ответ: <white>/captcha <число></white></gray>"
+  captcha-required: "<yellow>Сначала решите пример: <white>%question% = ?</white> → <gray>/captcha <число></gray></yellow>"
+  reminder-captcha: "<gradient:#ff9966:#ff5e62>Решите пример:</gradient> <white>%question% = ?</white>"
+  captcha-usage: "<red>Использование: <white>/captcha <число></white></red>"
+  captcha-wrong: "<red>Неверно. Новый пример: <white>%question% = ?</white></red>"
+  captcha-correct: "<green>✔ Верно! Теперь зарегистрируйтесь: <white>/register <пароль> <пароль></white></green>"
+  captcha-kick: "<red><bold>Слишком много неверных ответов.</bold>\n<gray>Похоже на бота — переподключитесь и попробуйте снова.</gray></red>"
+  captcha-not-needed: "<gray>Решать пример сейчас не нужно.</gray>"
